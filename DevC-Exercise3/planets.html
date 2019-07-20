@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Exercise 3</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+        
+        <div>
+        	<h1>Daftar Planets <span class="badge badge-secondary"></span></h1>
+        </div>
+        <table id="demo" class="table table-sm">
+		</table>
+        <div class="container-fluid">
+
+		</div>
+        
+       
+
+</body>
+<script type="text/javascript">
+	var xmlhttp = new XMLHttpRequest();
+	
+	xmlhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+			var myObj = JSON.parse(this.responseText);
+			var planets = myObj.results;
+			var planets_table = "";
+
+		for (planets of planets){
+			console.log(planets.name);
+			planets_table += "<tr>	<td class='table-success'>"+planets.name+"</td>"
+									+"<td>" + planets.rotation_period+ "</td>"
+									+"<td class='table-secondary'>" +planets.orbital_period+ "</td>"
+									+"<td class='bg-danger'>" +planets.diameter+ "</td>"
+									+"<td>" +planets.climate+ "</td>"
+									+"<td>" +planets.gravity+ "</td>"
+									+"<td>" +planets.terrain+ "</td>"
+									+"<td class=table-info>" +planets.surface_water+ "</td>"
+									+"<td class='bg-success'>" +planets.population+ "</td></tr>";
+			 //"</td>"+"<td>"+planets.residents+"</td>"+"<td>"+planets.films+"</td>"+"<td>"+planets.created+"</td>"+"<td>"+planets.edited+"</td>"+"<td>"+planets.url+"</td></tr>";
+		}
+		document.getElementById("demo").innerHTML = 
+		"<thead class='thead-dark'><tr><th> Name </th><th> Rotation Period </th><th> Orbital Period </th><th> Diameter </th><th> Climate </th><th> Gravity </th><th>Terrain </th><th> Surface Water </th><th> Population </th></tr></thead>"+planets_table; //<th> Residents </th> <th> Films </th><th> Created </th><th> Edited </th> <th> url </th></tr>" + planets_table;
+	}
+};
+xmlhttp.open("GET", "https://swapi.co/api/planets/", true)
+	xmlhttp.send();
+</script>
+</html>
